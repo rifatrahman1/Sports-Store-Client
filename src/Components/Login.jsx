@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
+      const {login_user} = useContext(AuthContext);
       const handle_submit = (event) => {
             event.preventDefault();
             const form = event.target;
-            const name = form.email.value;
-            const email = form.password.value;
+            const email = form.email.value;
+            const password = form.password.value;
             const login = {name, email};
             console.log(login); 
+
+            login_user(email, password)
+            .then((result) => {
+                  console.log(result.user);
+            })
+            .catch((error) => {
+                  console.log('ERROR', error);
+            })
       }
       return (
             <div className='flex flex-col justify-center items-center min-h-screen'>
@@ -74,7 +84,7 @@ const Login = () => {
                                                 >E-mail</label
                                                 >
                                                 <input
-                                                      type="email" placeholder='Please enter your email'
+                                                      type="email" placeholder='Please enter your email' name='email'
                                                       className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
                                                 />
                                                 <label
@@ -82,7 +92,7 @@ const Login = () => {
                                                 >Password</label
                                                 >
                                                 <input
-                                                      type="password" placeholder='Please enter your password'
+                                                      type="password" placeholder='Please enter your password' name='password'
                                                       className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
                                                 />
                                           </div>

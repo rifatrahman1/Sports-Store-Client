@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import Home from "../Components/Home";
-import Add_equipment from "../Components/Add_equipment";
 import Login from "../Components/Login";
 import Signup from "../Components/Signup";
+import Product_submit from "../Components/Product_submit";
 
-const router = createBrowserRouter ([
+const router = createBrowserRouter([
       {
             path: '/',
             element: <Layout></Layout>,
@@ -16,7 +16,7 @@ const router = createBrowserRouter ([
                   },
                   {
                         path: '/add_equipment',
-                        element: <Add_equipment></Add_equipment>
+                        element: <Product_submit></Product_submit>
                   },
                   {
                         path: '/login',
