@@ -61,7 +61,7 @@ const Sport = ({ sport, set_sports }) => {
                                           </div>
                                           <p className='font-bold text-[#D2B48C]'>View</p>
                                     </Link>
-                                    <Link to={`/update_coffee/${_id}`} className='flex items-center !gap-3'>
+                                    <Link to={`/update_sports/${_id}`} className='flex items-center !gap-3'>
                                           <div className='bg-black p-2 rounded-lg'>
                                                 <IoPencil className='text-white ' />
                                           </div>

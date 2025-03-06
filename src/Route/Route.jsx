@@ -4,10 +4,10 @@ import Home from "../Components/Home";
 import Login from "../Components/Login";
 import Signup from "../Components/Signup";
 import Product_submit from "../Components/Product_submit";
-import Header from "../Components/Header";
 import Details from "../Components/Details";
 import All_Equipment from "../Components/All_Equipment";
 import My_equipment from "../Components/My_equipment";
+import Update_submit from "../Components/Update_submit";
 
 const router = createBrowserRouter([
       {
@@ -43,6 +43,11 @@ const router = createBrowserRouter([
                         path: '/details/:id',
                         element: <Details></Details>,
                         loader: () => fetch ('http://localhost:5000/sports')
+                  },
+                  {
+                        path: '/update_sports/:id',
+                        element: <Update_submit></Update_submit>,
+                        loader: ({params}) => (`http://localhost:5000/sports/${params.id}`)
                   }
                   
             ]
