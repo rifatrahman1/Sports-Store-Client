@@ -14,6 +14,8 @@ import {
   Package,
   CheckCircle
 } from 'lucide-react';
+import { form } from 'motion/react-client';
+import Swal from 'sweetalert2';
 
 const Add_equipment = () => {
   const [formData, setFormData] = useState({
@@ -114,6 +116,42 @@ const Add_equipment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const item_name = form.itemName.value;
+    const category_name = form.categoryName.value;
+    const image = form.image.value;
+    const description = form.description.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
+    const delivery = form.deliveryTime.value;
+    const customization = form.customization.value;
+    const status = form.stockStatus.value;
+    const product_information = {item_name, category_name, category_name, image, description, price, rating, delivery, customization, status};
+    console.log(product_information);
+
+    // send data to the server 
+
+    fetch('http://localhost:5000/sports', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(product_information)
+    })
+    .then(res => res.json())
+    .then((data) => {
+      if (data.insertedId) {
+        Swal.fire({
+          title: "Good job!",
+          text: "User added successfully!",
+          icon: "success",
+    }).then(() => {
+          form.reset();
+          form.elements["name"].value = "";
+          form.elements["email"].value = "";
+    });
+      }
+    })
     
     if (!validateForm()) {
       return;
@@ -457,7 +495,7 @@ const Add_equipment = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+            className={`inline-flex cursor-pointer items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
               isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
             }`}
           >

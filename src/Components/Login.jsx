@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Login = () => {
-      const {login_user} = useContext(AuthContext);
+      const {login_user, handle_google_login} = useContext(AuthContext);
       const handle_submit = (event) => {
             event.preventDefault();
             const form = event.target;
@@ -13,6 +13,16 @@ const Login = () => {
             console.log(login); 
 
             login_user(email, password)
+            .then((result) => {
+                  console.log(result.user);
+            })
+            .catch((error) => {
+                  console.log('ERROR', error);
+            })
+      }
+
+      const handle_google = () => {
+            handle_google_login()
             .then((result) => {
                   console.log(result.user);
             })
@@ -105,7 +115,7 @@ const Login = () => {
                                           </div>
                                           <div className="flex justify-center items-center">
                                                 <div>
-                                                      <button
+                                                      <button onClick={handle_google}
                                                             className="flex items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
                                                       >
                                                             <svg
