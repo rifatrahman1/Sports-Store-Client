@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md';
 import { data, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const Sport = ({ sport, set_sports }) => {
+const Sport = ({ sport, sports, set_sports }) => {
       const { _id, item_name, price, rating, image, status } = sport || {};
 
       const handle_delete = (_id) => {
@@ -33,7 +33,7 @@ const Sport = ({ sport, set_sports }) => {
                                                 text: "Your sports item has been deleted.",
                                                 icon: "success"
                                           });
-                                          const remaining = sport.filter((data) => data._id !== _id);
+                                          const remaining = sports.filter((data) => data._id !== _id);
                                           set_sports(remaining);
                                     }
                               })

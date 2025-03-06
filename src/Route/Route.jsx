@@ -8,11 +8,13 @@ import Details from "../Components/Details";
 import All_Equipment from "../Components/All_Equipment";
 import My_equipment from "../Components/My_equipment";
 import Update_submit from "../Components/Update_submit";
+import Error from "../Components/Error";
 
 const router = createBrowserRouter([
       {
             path: '/',
             element: <Layout></Layout>,
+            errorElement: <Error></Error>,
             children: [
                   {
                         path: '/',
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
                   {
                         path: '/update_sports/:id',
                         element: <Update_submit></Update_submit>,
-                        loader: ({params}) => (`http://localhost:5000/sports/${params.id}`)
+                        loader: ({params}) => fetch (`http://localhost:5000/sports/${params.id}`)
                   }
                   
             ]

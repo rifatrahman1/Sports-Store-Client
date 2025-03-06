@@ -4,7 +4,6 @@ import { useLoaderData } from 'react-router-dom';
 
 const Update_submit = () => {
       const loader_data = useLoaderData();
-      console.log(loader_data);
       return (
             <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 py-12 px-4 sm:px-6 lg:px-8">
                   <div className="max-w-4xl mx-auto">

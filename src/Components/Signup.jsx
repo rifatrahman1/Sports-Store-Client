@@ -19,19 +19,48 @@ const Signup = () => {
             create_user(email, password)
                   .then((result) => {
                         console.log(result.user);
-                        form.reset();
+
+                        fetch('http://localhost:5000/users/', {
+                              method: 'POST',
+                              headers: {
+                                    'content-type': 'application/json'
+                              },
+                              body: JSON.stringify(register)
+                        })
+                              .then(res => res.json())
+                              .then((data) => {
+                                    console.log(data);
+                                    if (data.insertedId) {
+                                          const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: "top-end",
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                      toast.onmouseenter = Swal.stopTimer;
+                                                      toast.onmouseleave = Swal.resumeTimer;
+                                                }
+                                          });
+                                          Toast.fire({
+                                                icon: "success",
+                                                title: "Signed in successfully"
+                                          });
+                                          form.reset();
+                                    }
+                              })
                   })
                   .catch((error) => {
                         console.log('ERROR', error);
                   });
-       };
+      };
 
       return (
             <div className='flex flex-col justify-center items-center min-h-screen'>
                   <form onSubmit={handle_submit} className="form">
                         <p className="title">Register</p>
                         <p className="message">Signup now and get full access to our app.</p>
-                        
+
                         <label>
                               <input className="input" type="text" name="name" required />
                               <span>Firstname</span>
