@@ -1,3 +1,8 @@
+.images {
+  background-image: url('../assets/register-logo.webp');
+  background-size: cover;
+}
+
 .form {
       display: flex;
       flex-direction: column;
@@ -6,7 +11,8 @@
       padding: 20px;
       border-radius: 20px;
       position: relative;
-      background-color: #1a1a1a;
+      background-color: transparent;
+      /* background-color: #1a1a1a; */
       color: #fff;
       border: 1px solid #333;
     }

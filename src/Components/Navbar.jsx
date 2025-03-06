@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import { FaRegHeart } from 'react-icons/fa';
 import { BsBag } from 'react-icons/bs';
 import './Navbar.css'
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
+      const {user} = useContext(AuthContext);
+      console.log(user);
       return (
             <div >
                   <div className='flex items-center justify-around py-5 bg-[#fe0000] text-white font-bold'>

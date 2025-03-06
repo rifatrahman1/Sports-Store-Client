@@ -4,7 +4,7 @@ import { FaFacebook, FaSquareInstagram, FaYoutube } from 'react-icons/fa6';
 
 const Footer = () => {
       return (
-            <div className='bg-black text-white py-24 mt-16'>
+            <div className='bg-black text-white py-24 mt-2'>
                   <div className='w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5'>
                         <div>
                               <div className='flex items-center !gap-6'>

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './Signup.css';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Signup = () => {
       const { create_user } = useContext(AuthContext);
@@ -20,7 +21,7 @@ const Signup = () => {
                   .then((result) => {
                         console.log(result.user);
 
-                        fetch('http://localhost:5000/users/', {
+                        fetch('https://sports-store-server-phi.vercel.app/users', {
                               method: 'POST',
                               headers: {
                                     'content-type': 'application/json'
@@ -56,7 +57,7 @@ const Signup = () => {
       };
 
       return (
-            <div className='flex flex-col justify-center items-center mt-10'>
+            <div className='flex flex-col justify-center items-center mt-2 images '>
                   <form onSubmit={handle_submit} className="form">
                         <p className="title">Register</p>
                         <p className="message">Signup now and get full access to our app.</p>

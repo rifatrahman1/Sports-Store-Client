@@ -1,40 +1,71 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
+import Swal from 'sweetalert2';
+import './Login.css'
 
 const Login = () => {
-      const {login_user, handle_google_login} = useContext(AuthContext);
+      const { login_user, handle_google_login } = useContext(AuthContext);
       const handle_submit = (event) => {
             event.preventDefault();
             const form = event.target;
             const email = form.email.value;
             const password = form.password.value;
-            const login = {name, email};
-            console.log(login); 
 
             login_user(email, password)
-            .then((result) => {
-                  console.log(result.user);
-            })
-            .catch((error) => {
-                  console.log('ERROR', error);
-            })
+                  .then((result) => {
+                        console.log(result.user);
+                        const last_signin_time = result?.user?.metadata?.lastSignInTime; 
+                        const login_info = { email, last_signin_time };
+                        fetch('https://sports-store-server-phi.vercel.app/users', {
+                              method: 'PATCH',
+                              headers: {
+                                    'content-type': 'application/json'
+                              },
+                              body: JSON.stringify(login_info)
+                        })
+                              .then(res => res.json())
+                              .then((data) => {
+                                    console.log(data);
+                                    if (data.matchedCount > 0) {
+                                          const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: "top-end",
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                      toast.onmouseenter = Swal.stopTimer;
+                                                      toast.onmouseleave = Swal.resumeTimer;
+                                                }
+                                          });
+                                          Toast.fire({
+                                                icon: "success",
+                                                title: "Signed in successfully"
+                                          });
+                                          form.reset();
+                                    }
+                              })
+                  })
+                  .catch((error) => {
+                        console.log('ERROR', error);
+                  })
       }
 
       const handle_google = () => {
             handle_google_login()
-            .then((result) => {
-                  console.log(result.user);
-            })
-            .catch((error) => {
-                  console.log('ERROR', error);
-            })
+                  .then((result) => {
+                        console.log(result.user);
+                  })
+                  .catch((error) => {
+                        console.log('ERROR', error);
+                  })
       }
       return (
-            <div className='flex flex-col justify-center items-center mt-10'>
+            <div className='flex flex-col justify-center items-center mt-2 image'>
                   <div className="relative py-3 sm:max-w-xl sm:mx-auto w-full">
                         <div
-                              className="relative px-4 py-10 bg-black mx-8 md:mx-0 shadow rounded-3xl sm:p-10"
+                              className="relative px-4 py-10 bg-transparent border border-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10"
                         >
                               <form onSubmit={handle_submit}>
                                     <div className="max-w-md mx-auto text-white">
@@ -90,7 +121,7 @@ const Login = () => {
                                           </div>
                                           <div className="mt-5">
                                                 <label
-                                                      className="font-semibold text-sm text-gray-400 pb-1 block"
+                                                      className="font-semibold text-sm text-white pb-1 block"
                                                 >E-mail</label
                                                 >
                                                 <input
@@ -98,7 +129,7 @@ const Login = () => {
                                                       className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
                                                 />
                                                 <label
-                                                      className="font-semibold text-sm text-gray-400 pb-1 block"
+                                                      className="font-semibold text-sm text-white pb-1 block"
                                                 >Password</label
                                                 >
                                                 <input
@@ -109,7 +140,7 @@ const Login = () => {
                                           <div className="text-right mb-4">
                                                 <Link
                                                       href="#"
-                                                      className="text-xs font-display font-semibold text-gray-500 hover:text-gray-400 cursor-pointer">
+                                                      className="text-xs font-display font-semibold text-white hover:text-gray-400 cursor-pointer">
                                                       Forgot Password?
                                                 </Link>
                                           </div>

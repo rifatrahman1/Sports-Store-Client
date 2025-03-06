@@ -19,7 +19,7 @@ const router = createBrowserRouter([
                   {
                         path: '/',
                         element: <Home></Home>,
-                        loader: () => fetch ('https://sports-store-server-one.vercel.app/sports')
+                        loader: () => fetch ('https://sports-store-server-phi.vercel.app/sports')
                   },
                   {
                         path: '/all_sports_equipment',
@@ -44,12 +44,12 @@ const router = createBrowserRouter([
                   {
                         path: '/details/:id',
                         element: <Details></Details>,
-                        loader: () => fetch ('https://sports-store-server-one.vercel.app/sports')
+                        loader: () => fetch ('https://sports-store-server-phi.vercel.app/sports')
                   },
                   {
                         path: '/update_sports/:id',
                         element: <Update_submit></Update_submit>,
-                        loader: ({params}) => fetch (`https://sports-store-server-one.vercel.app/sports/${params.id}`)
+                        loader: ({params}) => fetch (`https://sports-store-server-phi.vercel.app/sports/${params.id}`)
                   }
                   
             ]
