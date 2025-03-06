@@ -7,25 +7,22 @@ import { FaShoppingCart } from 'react-icons/fa';
 
 const Details = () => {
       const [sports, set_sports] = useState(null);
-      const [count, setCount] = useState(1); // Initial count 1
-      const [cartCount, setCartCount] = useState(0); // Cart counter
+      const [count, setCount] = useState(1); 
+      const [cartCount, setCartCount] = useState(0); 
 
-      // 🟢 সংখ্যা বাড়ানোর ফাংশন
       const handleIncrease = () => {
             setCount(count + 1);
       };
 
-      // 🔴 সংখ্যা কমানোর ফাংশন (0-এর নিচে যাবে না)
       const handleDecrease = () => {
             if (count > 1) {
                   setCount(count - 1);
             }
       };
 
-      // 🛒 "Add to Cart" ফাংশন
       const handleAddToCart = () => {
             setCartCount(cartCount + count);
-            setCount(1); // Reset count after adding to cart
+            setCount(1); 
       };
       const sports_data = useLoaderData();
       const { id } = useParams();

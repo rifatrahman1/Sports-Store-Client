@@ -56,7 +56,7 @@ const Signup = () => {
       };
 
       return (
-            <div className='flex flex-col justify-center items-center min-h-screen'>
+            <div className='flex flex-col justify-center items-center mt-10'>
                   <form onSubmit={handle_submit} className="form">
                         <p className="title">Register</p>
                         <p className="message">Signup now and get full access to our app.</p>

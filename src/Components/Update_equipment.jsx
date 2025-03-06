@@ -53,70 +53,6 @@ const Update_equipment = () => {
             }
       };
 
-      //   const validateForm = () => {
-      //     const newErrors = {};
-      //     let isValid = true;
-
-      //     // Required fields
-      //     if (!formData.itemName.trim()) {
-      //       newErrors.itemName = 'Item name is required';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.categoryName.trim()) {
-      //       newErrors.categoryName = 'Category name is required';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.image.trim()) {
-      //       newErrors.image = 'Image URL is required';
-      //       isValid = false;
-      //     } else if (!formData.image.match(/^https?:\/\/.+/i)) {
-      //       newErrors.image = 'Please enter a valid URL';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.description.trim()) {
-      //       newErrors.description = 'Description is required';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.price.trim()) {
-      //       newErrors.price = 'Price is required';
-      //       isValid = false;
-      //     } else if (isNaN(parseFloat(formData.price))) {
-      //       newErrors.price = 'Price must be a number';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.rating.trim()) {
-      //       newErrors.rating = 'Rating is required';
-      //       isValid = false;
-      //     } else {
-      //       const ratingValue = parseFloat(formData.rating);
-      //       if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 5) {
-      //         newErrors.rating = 'Rating must be between 1 and 5';
-      //         isValid = false;
-      //       }
-      //     }
-
-      //     if (!formData.deliveryTime.trim()) {
-      //       newErrors.deliveryTime = 'Delivery time is required';
-      //       isValid = false;
-      //     } else if (isNaN(parseInt(formData.deliveryTime)) || parseInt(formData.deliveryTime) < 1) {
-      //       newErrors.deliveryTime = 'Delivery time must be a positive number';
-      //       isValid = false;
-      //     }
-
-      //     if (!formData.customization.trim()) {
-      //       newErrors.customization = 'Customization options are required';
-      //       isValid = false;
-      //     }
-
-      //     setErrors(newErrors);
-      //     return isValid;
-      //   };
-
       const handleSubmit = (e) => {
             e.preventDefault();
             const form = e.target;
@@ -133,7 +69,7 @@ const Update_equipment = () => {
 
             // send data to the server 
 
-            fetch(`http://localhost:5000/sports/${_id}`, {
+            fetch(`https://sports-store-server-one.vercel.app/sports/${_id}`, {
                   method: 'PUT',
                   headers: {
                         'content-type': 'application/json'
@@ -155,10 +91,6 @@ const Update_equipment = () => {
                               });
                         }
                   })
-
-            //     if (!validateForm()) {
-            //       return;
-            //     }
 
             setIsSubmitting(true);
 
