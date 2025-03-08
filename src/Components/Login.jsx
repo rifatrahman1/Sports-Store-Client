@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
@@ -6,6 +6,7 @@ import './Login.css'
 
 const Login = () => {
       const { login_user, handle_google_login } = useContext(AuthContext);
+      const [error, set_error] = useState('');
       const handle_submit = (event) => {
             event.preventDefault();
             const form = event.target;
@@ -14,8 +15,7 @@ const Login = () => {
 
             login_user(email, password)
                   .then((result) => {
-                        console.log(result.user);
-                        const last_signin_time = result?.user?.metadata?.lastSignInTime; 
+                        const last_signin_time = result?.user?.metadata?.lastSignInTime;
                         const login_info = { email, last_signin_time };
                         fetch('https://sports-store-server-phi.vercel.app/users', {
                               method: 'PATCH',
@@ -26,7 +26,6 @@ const Login = () => {
                         })
                               .then(res => res.json())
                               .then((data) => {
-                                    console.log(data);
                                     if (data.matchedCount > 0) {
                                           const Toast = Swal.mixin({
                                                 toast: true,
@@ -48,17 +47,21 @@ const Login = () => {
                               })
                   })
                   .catch((error) => {
-                        console.log('ERROR', error);
+                        if (error.code === "auth/invalid-credential") {
+                              set_error("Incorrect password! Please try again.");
+                        } else if (error.code === "auth/wrong-password") {
+                              set_error("User does not exist. Please register first!");
+                        } else {
+                              set_error("Login failed! " + error.message);
+                        }
                   })
       }
 
       const handle_google = () => {
             handle_google_login()
                   .then((result) => {
-                        console.log(result.user);
                   })
                   .catch((error) => {
-                        console.log('ERROR', error);
                   })
       }
       return (
@@ -137,6 +140,9 @@ const Login = () => {
                                                       className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full bg-gray-700 text-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500"
                                                 />
                                           </div>
+                                          {
+                                                error && <p className="text-red-500 font-medium">{error}</p>
+                                          }
                                           <div className="text-right mb-4">
                                                 <Link
                                                       href="#"

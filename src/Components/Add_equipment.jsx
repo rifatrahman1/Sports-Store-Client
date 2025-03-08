@@ -127,7 +127,6 @@ const Add_equipment = () => {
     const customization = form.customization.value;
     const status = form.stockStatus.value;
     const product_information = {item_name, category_name, category_name, image, description, price, rating, delivery, customization, status};
-    console.log(product_information);
 
     // send data to the server 
 
@@ -161,7 +160,6 @@ const Add_equipment = () => {
     
     // Simulate API call
     setTimeout(() => {
-      console.log('Form submitted:', formData);
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 1500);

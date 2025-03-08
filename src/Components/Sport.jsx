@@ -10,7 +10,6 @@ const Sport = ({ sport, sports, set_sports }) => {
       const { _id, item_name, price, rating, image, status } = sport || {};
 
       const handle_delete = (_id) => {
-            console.log(_id);
             Swal.fire({
                   title: "Are you sure?",
                   text: "You won't be able to revert this!",
@@ -26,7 +25,6 @@ const Sport = ({ sport, sports, set_sports }) => {
                         })
                               .then(res => res.json())
                               .then((data) => {
-                                    console.log(data);
                                     if (data.deletedCount > 0) {
                                           Swal.fire({
                                                 title: "Deleted!",

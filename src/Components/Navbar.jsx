@@ -7,8 +7,8 @@ import './Navbar.css'
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
-      const {user} = useContext(AuthContext);
-      console.log(user);
+      const { user, sign_out } = useContext(AuthContext);
+      // console.log(user.photoURL, user.displayName, user.email);
       return (
             <div >
                   <div className='flex items-center justify-around py-5 bg-[#fe0000] text-white font-bold'>
@@ -38,10 +38,16 @@ const Navbar = () => {
                         </div>
                         <div className='!flex'>
                               <div className='border-r-2 h-10 items-center flex'>
-                                    <Link to={'/login'} className='text-white font-semibold text-lg  border-gray-500'>Login</Link>
+                                    <div className='pr-5'>
+                                          {
+                                                user && user?.email ? <button className='text-white cursor-pointer font-semibold text-lg  border-gray-500' onClick={sign_out}>Sign out</button> : <Link to={'/login'} className='text-white font-semibold text-lg border-gray-500'>Login</Link>
+                                          }
+                                    </div>
                               </div>
                               <div className='flex pl-5 items-center !gap-5'>
-                                    <img className='w-[30px] rounded-full' src={logo} alt="" />
+                                    {
+                                          user?.email && (<img title={user?.displayName || user.name} className='cursor-pointer w-[30px] rounded-full' src={user?.photoURL || user?.photo} alt="" />)
+                                    }
                                     <i className='text-2xl'><FaRegHeart /></i>
                                     <i className='text-2xl'><BsBag /></i>
                               </div>
