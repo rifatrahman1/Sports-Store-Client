@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Header from './Header';
-import Depertment from './Depertment';
-import Ton from './Ton';
-import Featured from './Featured';
-import Sports from './Sports';
-import Others from './Others';
-import Cricket from './Cricket';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import './Private.css'
+import { AuthContext } from '../Provider/AuthProvider';
 
-const Home = () => {
+const Private_route = ({ children }) => {
+      const {user} = useContext(AuthContext);
       const [loading, set_loading] = useState(true);
+      const location = useLocation();
       
       useEffect(() => {
             const timer = setTimeout(() => {
@@ -70,32 +68,10 @@ const Home = () => {
                   </div>
             );
       }
-      return (
-            <div>
-                  <Header></Header>
-                  <div className='bg-[#f9f5f4]'>
-                        <Depertment></Depertment>
-                  </div>
-                  <div className='w-11/12 mx-auto'>
-                        <Ton></Ton>
-                  </div>
-                  <div className='border-b-2 border-gray-400 pb-12'>
-                        <Featured></Featured>
-                  </div>
-                  <div className='w-11/12 mx-auto '>
-                        <Sports></Sports>
-                  </div>
-                  <div>
-                        <Cricket></Cricket>
-                  </div>
-                  <div>
-                        <Others></Others>
-                  </div>
-                  <div>
-                        
-                  </div>
-            </div>
-      );
+      if (!user) {
+            return <Navigate state={{ from: location.pathname }} to={'/login'}></Navigate>
+      }
+      return children
 };
 
-export default Home;
+export default Private_route;

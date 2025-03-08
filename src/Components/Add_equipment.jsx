@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -16,8 +16,11 @@ import {
 } from 'lucide-react';
 import { form } from 'motion/react-client';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Add_equipment = () => {
+  const {user} = useContext(AuthContext); 
+  console.log('user details', user);
   const [formData, setFormData] = useState({
     itemName: '',
     categoryName: '',
@@ -126,7 +129,9 @@ const Add_equipment = () => {
     const delivery = form.deliveryTime.value;
     const customization = form.customization.value;
     const status = form.stockStatus.value;
-    const product_information = {item_name, category_name, category_name, image, description, price, rating, delivery, customization, status};
+    const user_name = user.displayName;
+    const user_email = user.email;
+    const product_information = {user_name, user_email, item_name, category_name, category_name, image, description, price, rating, delivery, customization, status};
 
     // send data to the server 
 
@@ -211,6 +216,53 @@ const Add_equipment = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Column */}
           <div className="space-y-6">
+            <div>
+              <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
+                User Name
+              </label>
+              <div className="relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <ShoppingBag className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  name="itemName"
+                  id="itemName"
+                  disabled={true}
+                  defaultValue={user.displayName}
+                  // value={formData.itemName}
+                  onChange={handleChange}
+                  className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 sm:text-sm border-gray-300 rounded-md py-3 ${
+                    errors.itemName ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : ''
+                  }`}
+                  // placeholder="Enter product name"
+                />
+              </div>
+              {errors.itemName && <p className="mt-1 text-sm text-red-600">{errors.itemName}</p>}
+            </div>
+            <div>
+              <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address
+              </label>
+              <div className="relative rounded-md shadow-sm">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <ShoppingBag className="h-5 w-5 text-gray-400" />
+                </div>
+                <input disabled={true}
+                  type="text"
+                  name="itemName"
+                  id="itemName"
+                  defaultValue={user.email}
+                  // value={formData.itemName}
+                  onChange={handleChange}
+                  className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 sm:text-sm border-gray-300 rounded-md py-3 ${
+                    errors.itemName ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : ''
+                  }`}
+                  // placeholder="Enter product name"
+                />
+              </div>
+              {errors.itemName && <p className="mt-1 text-sm text-red-600">{errors.itemName}</p>}
+            </div>
             <div>
               <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
                 Item Name

@@ -43,7 +43,6 @@ const Signup = () => {
             .then(() => {
                   console.log("Profile Updated:", result.user);
                   
-                  // ইউজার তথ্য সার্ভারে পাঠানো
                   fetch('https://sports-store-server-phi.vercel.app/users', {
                         method: 'POST',
                         headers: {

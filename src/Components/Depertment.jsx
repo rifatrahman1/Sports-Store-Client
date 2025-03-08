@@ -5,7 +5,7 @@ const Depertment = () => {
       return (
             <div className='w-11/12 mx-auto py-16'>
                   <h2 className='text-xl font-semibold tracking-widest'>SHOP BY DEPERTMENT</h2>
-                  <div className='flex items-center !gap-5 mt-10'>
+                  <div className='flex flex-wrap items-center !gap-5 mt-10'>
                         <Link to={'/details/67c74a47bb8211066705ca98'}><p className='font-semibold bg-white hover:bg-[#d8cfcd] px-7 py-3 duration-300'>Adult Shoes</p></Link>
                         <Link to={'/details/67c74889bb8211066705ca8d'}><p className='font-semibold bg-white hover:bg-[#d8cfcd] px-7 py-3 duration-300'>Adult Gloves</p></Link>
                         <Link to={'/details/67c7cc1a008a0717acc5d337'}><p className='font-semibold bg-white hover:bg-[#d8cfcd] px-7 py-3 duration-300'>Adult Pads</p></Link>

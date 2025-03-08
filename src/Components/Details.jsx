@@ -36,7 +36,7 @@ const Details = () => {
 
       return (
             <div className='bg-[#f7f7f7] py-24'>
-                  <div className='bg-white flex items-center !gap-16 rounded-lg p-20  !w-9/12 shadow-lg mx-auto'>
+                  <div className='bg-white grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 items-center !gap-16 rounded-lg p-20  !w-9/12 shadow-lg mx-auto'>
                         <div>
                               <img className='w-[400px] rounded-lg' src={image} alt="" />
                         </div>
@@ -53,7 +53,7 @@ const Details = () => {
                               </p>
 
 
-                              <div className="border border-gray-400 p-4 rounded-lg shadow-md w-[400px] mt-7">
+                              <div className="border border-gray-400 p-4 rounded-lg shadow-md lg:w-[400px] mt-7">
                               <p className='text-red-400 text-2xl'>Price : {price} $</p>
                                     <div className="space-y-2.5 mt-4">
                                          

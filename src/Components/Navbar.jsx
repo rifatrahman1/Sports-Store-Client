@@ -5,18 +5,20 @@ import { FaRegHeart } from 'react-icons/fa';
 import { BsBag } from 'react-icons/bs';
 import './Navbar.css'
 import { AuthContext } from '../Provider/AuthProvider';
+import Theme_toggle from './Theme_toggle';
 
 const Navbar = () => {
       const { user, sign_out } = useContext(AuthContext);
-      // console.log(user.photoURL, user.displayName, user.email);
+
       return (
             <div >
-                  <div className='flex items-center justify-around py-5 bg-[#fe0000] text-white font-bold'>
+                  <div className='relative flex flex-col lg:flex-row items-center justify-center lg:justify-around py-5 bg-[#fe0000] text-white font-bold'>
                         <h1>FREE BD DELIVERY ON ORDERS OVER £70</h1>
                         <Link to={'/'}><h1 className='underline'>SALE - UP TO 80% OFF!</h1></Link>
                         <h1>PAY OVER TIME WITH KLARNA & PAYPAL</h1>
+
                   </div>
-                  <div className='bg-[#202020] py-3 !gap-7 flex items-center text-[#8f9291] font-semibold text-[14px] pl-5 '>
+                  <div className='bg-[#202020] py-3 !gap-7 flex flex-wrap items-center text-[#8f9291] font-semibold text-[14px] pl-5 '>
                         <p className='hover:text-white cursor-pointer'>CRICKET</p>
                         <p className='hover:text-white cursor-pointer'>SOCCER</p>
                         <p className='hover:text-white cursor-pointer'>RUNNING</p>
@@ -33,10 +35,13 @@ const Navbar = () => {
                                     <h1 className='mono text-2xl font-semibold tracking-widest name'>CRICKET BLAST</h1>
                               </div>
                         </div>
-                        <div className=' w-1/3'>
+                        <div className=' w-1/3 lg:flex hidden'>
                               <input className='bg-white text-gray-500 w-full py-3 pl-3 rounded-lg' type="search" placeholder='Search cricket blast specialist store' />
                         </div>
-                        <div className='!flex'>
+                        <div className='lg:!flex hidden'>
+                              <div className='pr-7'>
+                                    <Theme_toggle></Theme_toggle>
+                              </div>
                               <div className='border-r-2 h-10 items-center flex'>
                                     <div className='pr-5'>
                                           {
@@ -52,12 +57,23 @@ const Navbar = () => {
                                     <i className='text-2xl'><BsBag /></i>
                               </div>
                         </div>
+                        <div className='lg:hidden'>
+                              <input id="checkbox2" type="checkbox" />
+                              <label class="toggle toggle2" for="checkbox2">
+                                    <div id="bar4" class="bars"></div>
+                                    <div id="bar5" class="bars"></div>
+                                    <div id="bar6" class="bars"></div>
+                              </label>
+                        </div>
                   </div>
-                  <div className='bg-white py-5 flex items-center gap-20 text-xl space-x-14 pl-10'>
+                  <div className='bg-white py-5 flex items-center md:!gap-14 !gap-7 lg:text-xl  md:pl-10 pl-5'>
                         <NavLink to={'/'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>Home</NavLink>
                         <NavLink to={'/all_sports_equipment'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>All Sports Equipment</NavLink>
-                        <NavLink to={'/add_equipment'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>Add Equipment</NavLink>
-                        <NavLink to={'/my_equipment_list'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>My Equipment List</NavLink>
+                         {
+                              user && user.email ? <>
+                              <NavLink to={'/add_equipment'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>Add Equipment</NavLink>
+                              <NavLink to={'/my_equipment_list'} className={({ isActive }) => isActive ? 'bg-black text-white px-7 py-1 rounded-lg duration-300' : ''}>My Equipment List</NavLink></> : <></>
+                         }
                   </div>
             </div>
       );

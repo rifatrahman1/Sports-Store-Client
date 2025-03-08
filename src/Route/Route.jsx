@@ -9,6 +9,7 @@ import All_Equipment from "../Components/All_Equipment";
 import My_equipment from "../Components/My_equipment";
 import Update_submit from "../Components/Update_submit";
 import Error from "../Components/Error";
+import Private_route from "../Private/Private_route";
 
 const router = createBrowserRouter([
       {
@@ -19,19 +20,25 @@ const router = createBrowserRouter([
                   {
                         path: '/',
                         element: <Home></Home>,
-                        loader: () => fetch ('https://sports-store-server-phi.vercel.app/sports')
+                        loader: () => fetch('https://sports-store-server-phi.vercel.app/sports')
                   },
                   {
                         path: '/all_sports_equipment',
-                        element: <All_Equipment></All_Equipment>
+                        element: <All_Equipment></All_Equipment>,
+                        loader: () => fetch('https://sports-store-server-phi.vercel.app/all_sports')
                   },
                   {
                         path: '/my_equipment_list',
-                        element: <My_equipment></My_equipment>
+                        element: <Private_route>
+                              <My_equipment></My_equipment>
+                        </Private_route>,
+                        loader: () => fetch('https://sports-store-server-phi.vercel.app/all_sports')
                   },
                   {
                         path: '/add_equipment',
-                        element: <Product_submit></Product_submit>
+                        element: <Private_route>
+                              <Product_submit></Product_submit>
+                        </Private_route>
                   },
                   {
                         path: '/login',
@@ -43,15 +50,19 @@ const router = createBrowserRouter([
                   },
                   {
                         path: '/details/:id',
-                        element: <Details></Details>,
-                        loader: () => fetch ('https://sports-store-server-phi.vercel.app/sports')
+                        element: <Private_route>
+                              <Details></Details>
+                        </Private_route>,
+                        loader: () => fetch('https://sports-store-server-phi.vercel.app/sports')
                   },
                   {
                         path: '/update_sports/:id',
-                        element: <Update_submit></Update_submit>,
-                        loader: ({params}) => fetch (`https://sports-store-server-phi.vercel.app/sports/${params.id}`)
+                        element: <Private_route>
+                              <Update_submit></Update_submit>
+                        </Private_route>,
+                        loader: ({ params }) => fetch(`https://sports-store-server-phi.vercel.app/sports/${params.id}`)
                   }
-                  
+
             ]
       }
 ])

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import './Login.css'
@@ -7,11 +7,15 @@ import './Login.css'
 const Login = () => {
       const { login_user, handle_google_login } = useContext(AuthContext);
       const [error, set_error] = useState('');
+      const navigete = useNavigate();
+      const location = useLocation();
       const handle_submit = (event) => {
             event.preventDefault();
             const form = event.target;
             const email = form.email.value;
             const password = form.password.value;
+
+            const from = location.state?.from?.pathname || "/";
 
             login_user(email, password)
                   .then((result) => {
@@ -60,6 +64,7 @@ const Login = () => {
       const handle_google = () => {
             handle_google_login()
                   .then((result) => {
+                        navigete(location.state.from);
                   })
                   .catch((error) => {
                   })
@@ -150,7 +155,26 @@ const Login = () => {
                                                       Forgot Password?
                                                 </Link>
                                           </div>
-                                          <div className="flex justify-center items-center">
+                                         
+                                          <div className="mt-5">
+                                                <button
+                                                      type="submit"
+                                                      className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                                                >
+                                                      Log in
+                                                </button>
+                                          </div>
+                                          <div className="flex items-center justify-between mt-4">
+                                                <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+                                                <Link to={'/signup'}
+                                                      className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
+                                                >or sign up</Link
+                                                >
+                                                <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
+                                          </div>
+                                    </div>
+                              </form>
+                              <div className="flex justify-center items-center">
                                                 <div>
                                                       <button onClick={handle_google}
                                                             className="flex items-center justify-center py-2 px-20 bg-white hover:bg-gray-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-gray-700 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
@@ -242,24 +266,6 @@ const Login = () => {
                                                       </button>
                                                 </div>
                                           </div>
-                                          <div className="mt-5">
-                                                <button
-                                                      type="submit"
-                                                      className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-                                                >
-                                                      Log in
-                                                </button>
-                                          </div>
-                                          <div className="flex items-center justify-between mt-4">
-                                                <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                                                <Link to={'/signup'}
-                                                      className="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline"
-                                                >or sign up</Link
-                                                >
-                                                <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                                          </div>
-                                    </div>
-                              </form>
                         </div>
                   </div>
 

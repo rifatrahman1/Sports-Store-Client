@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,8 +17,10 @@ import {
 import { form } from 'motion/react-client';
 import Swal from 'sweetalert2';
 import { Link, useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Update_equipment = () => {
+      const {user} = useContext(AuthContext);
       const loader_data = useLoaderData();
       const { _id, item_name, price, rating, image, status, description, customization, category_name, delivery } = loader_data || {};
       const [formData, setFormData] = useState({
@@ -65,11 +67,13 @@ const Update_equipment = () => {
             const delivery = form.deliveryTime.value;
             const customization = form.customization.value;
             const status = form.stockStatus.value;
-            const update_product = { _id, item_name, category_name, image, description, price, rating, delivery, customization, status };
+            const user_name = user.displayName;
+            const user_email = user.email;
+            const update_product = {user_name, user_email, _id, item_name, category_name, image, description, price, rating, delivery, customization, status };
 
             // send data to the server 
 
-            fetch(`https://sports-store-server-phi.vercel.app/sports/${_id}`, {
+            fetch(`https://sports-store-server-phi.vercel.app/al_sports/${_id}`, {
                   method: 'PUT',
                   headers: {
                         'content-type': 'application/json'
@@ -112,11 +116,11 @@ const Update_equipment = () => {
                               <h2 className="mt-4 text-2xl font-bold text-gray-900">Product Submitted Successfully!</h2>
                               <p className="mt-2 text-gray-600">Your product has been submitted and is pending review.</p>
                               <div className="mt-6">
-                                    <Link to={'/'}>
+                                    <Link to={'/my_equipment_list'}>
                                           <button
                                                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                           >
-                                                Go To Home
+                                                Go To Back
                                           </button>
                                     </Link>
                               </div>
@@ -136,6 +140,50 @@ const Update_equipment = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                               {/* Left Column */}
                               <div className="space-y-6">
+                                    <div>
+                                          <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
+                                                User Name
+                                          </label>
+                                          <div className="relative rounded-md shadow-sm">
+                                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                      <ShoppingBag className="h-5 w-5 text-gray-400" />
+                                                </div>
+                                                <input
+                                                      type="text"
+                                                      name="itemName"
+                                                      disabled={true}
+                                                      defaultValue={user.displayName}
+                                                      id="itemName"
+                                                      onChange={handleChange}
+                                                      className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 sm:text-sm border-gray-300 rounded-md py-3 ${errors.itemName ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : ''
+                                                            }`}
+                                                      // placeholder="Enter product name"
+                                                />
+                                          </div>
+                                          {errors.itemName && <p className="mt-1 text-sm text-red-600">{errors.itemName}</p>}
+                                    </div>
+                                    <div>
+                                          <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
+                                                Email Address
+                                          </label>
+                                          <div className="relative rounded-md shadow-sm">
+                                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                      <ShoppingBag className="h-5 w-5 text-gray-400" />
+                                                </div>
+                                                <input
+                                                      type="text"
+                                                      name="itemName"
+                                                      disabled={true}
+                                                      defaultValue={user.email}
+                                                      id="itemName"
+                                                      onChange={handleChange}
+                                                      className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 sm:text-sm border-gray-300 rounded-md py-3 ${errors.itemName ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : ''
+                                                            }`}
+                                                      // placeholder="Enter product name"
+                                                />
+                                          </div>
+                                          {errors.itemName && <p className="mt-1 text-sm text-red-600">{errors.itemName}</p>}
+                                    </div>
                                     <div>
                                           <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-1">
                                                 Item Name
