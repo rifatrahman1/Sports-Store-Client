@@ -3,9 +3,40 @@ import { FaRegEye } from 'react-icons/fa';
 import { IoPencil, IoStar } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Card = ({ card }) => {
       const { _id, item_name, price, rating, image, status } = card || {};
+
+      const handle_delete = (_id) => {
+                  Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, delete it!"
+                  }).then((result) => {
+                        if (result.isConfirmed) {
+                              fetch(`https://sports-store-server-phi.vercel.app/sports/${_id}`, {
+                                    method: 'DELETE',
+                              })
+                                    .then(res => res.json())
+                                    .then((data) => {
+                                          if (data.deletedCount > 0) {
+                                                Swal.fire({
+                                                      title: "Deleted!",
+                                                      text: "Your sports item has been deleted.",
+                                                      icon: "success"
+                                                });
+                                                const remaining = sports.filter((data) => data._id !== _id);
+                                                set_sports(remaining);
+                                          }
+                                    })
+                        }
+                  });
+            }
       return (
             <div>
                   <div key={card._id} className='bg-[#f5f5f5]'>

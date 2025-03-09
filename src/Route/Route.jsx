@@ -29,10 +29,11 @@ const router = createBrowserRouter([
                   },
                   {
                         path: '/my_equipment_list',
-                        element: <Private_route>
-                              <My_equipment></My_equipment>
-                        </Private_route>,
-                        loader: () => fetch('https://sports-store-server-phi.vercel.app/all_sports')
+                        element: 
+                              <Private_route>
+                                    <My_equipment />
+                              </Private_route>,
+                        loader: () => fetch('https://sports-store-server-phi.vercel.app/all_sports?sort=asc')
                   },
                   {
                         path: '/add_equipment',

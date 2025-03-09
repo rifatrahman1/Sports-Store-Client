@@ -73,7 +73,7 @@ const Update_equipment = () => {
 
             // send data to the server 
 
-            fetch(`https://sports-store-server-phi.vercel.app/al_sports/${_id}`, {
+            fetch(`https://sports-store-server-phi.vercel.app/all_sports/${_id}`, {
                   method: 'PUT',
                   headers: {
                         'content-type': 'application/json'

@@ -68,11 +68,11 @@ const All_Equipment = () => {
             }
       return (
             <div className='w-11/12 mx-auto'>
-                  <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 !gap-12 mt-5'>
+                  {/* <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 !gap-12 mt-5'> */}
                         {
                               all_equipment.map((sport) => <Sport key={sport._id} sport={sport} ></Sport>)
                         }
-                  </div>
+                  {/* </div> */}
             </div>
       );
 };

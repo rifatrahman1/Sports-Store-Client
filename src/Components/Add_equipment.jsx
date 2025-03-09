@@ -20,7 +20,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 
 const Add_equipment = () => {
   const {user} = useContext(AuthContext); 
-  console.log('user details', user);
+  // console.log('user details', user);
   const [formData, setFormData] = useState({
     itemName: '',
     categoryName: '',
@@ -132,6 +132,7 @@ const Add_equipment = () => {
     const user_name = user.displayName;
     const user_email = user.email;
     const product_information = {user_name, user_email, item_name, category_name, category_name, image, description, price, rating, delivery, customization, status};
+    console.log(product_information);
 
     // send data to the server 
 
@@ -151,8 +152,8 @@ const Add_equipment = () => {
           icon: "success",
     }).then(() => {
           form.reset();
-          form.elements["name"].value = "";
-          form.elements["email"].value = "";
+          // form.elements["name"].value = "";
+          // form.elements["email"].value = "";
     });
       }
     })
@@ -226,8 +227,8 @@ const Add_equipment = () => {
                 </div>
                 <input
                   type="text"
-                  name="itemName"
-                  id="itemName"
+                  // name="name"
+                  // id="itemName"
                   disabled={true}
                   defaultValue={user.displayName}
                   // value={formData.itemName}
@@ -250,8 +251,8 @@ const Add_equipment = () => {
                 </div>
                 <input disabled={true}
                   type="text"
-                  name="itemName"
-                  id="itemName"
+                  // name="itemName"
+                  // id="itemName"
                   defaultValue={user.email}
                   // value={formData.itemName}
                   onChange={handleChange}

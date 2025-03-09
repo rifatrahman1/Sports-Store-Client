@@ -16,7 +16,6 @@ const Navbar = () => {
                         <h1>FREE BD DELIVERY ON ORDERS OVER £70</h1>
                         <Link to={'/'}><h1 className='underline'>SALE - UP TO 80% OFF!</h1></Link>
                         <h1>PAY OVER TIME WITH KLARNA & PAYPAL</h1>
-
                   </div>
                   <div className='bg-[#202020] py-3 !gap-7 flex flex-wrap items-center text-[#8f9291] font-semibold text-[14px] pl-5 '>
                         <p className='hover:text-white cursor-pointer'>CRICKET</p>
@@ -59,10 +58,10 @@ const Navbar = () => {
                         </div>
                         <div className='lg:hidden'>
                               <input id="checkbox2" type="checkbox" />
-                              <label class="toggle toggle2" for="checkbox2">
-                                    <div id="bar4" class="bars"></div>
-                                    <div id="bar5" class="bars"></div>
-                                    <div id="bar6" class="bars"></div>
+                              <label className="toggle toggle2" htmlFor="checkbox2">
+                                    <div id="bar4" className="bars"></div>
+                                    <div id="bar5" className="bars"></div>
+                                    <div id="bar6" className="bars"></div>
                               </label>
                         </div>
                   </div>

@@ -18,7 +18,7 @@ const Private_route = ({ children }) => {
       if (loading) {
             return (
                   <div className='flex justify-center items-center min-h-screen'>
-                        <div class="box-of-star1">
+                        <div className="box-of-star1">
                               <div className="star star-position1"></div>
                               <div className="star star-position2"></div>
                               <div className="star star-position3"></div>

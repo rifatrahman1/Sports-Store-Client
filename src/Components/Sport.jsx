@@ -1,86 +1,72 @@
-import { Edit, Trash2 } from 'lucide-react';
+
 import React from 'react';
-import { FaRegEye } from 'react-icons/fa';
-import { IoPencil, IoStar } from 'react-icons/io5';
-import { MdDelete } from 'react-icons/md';
-import { data, Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+// import { Product } from '../types';
+// import { products } from '../data';
 
 const Sport = ({ sport, sports, set_sports }) => {
-      const { _id, item_name, price, rating, image, status } = sport || {};
+      // const { _id, item_name, price, rating, image, status } = sport || {};
 
-      const handle_delete = (_id) => {
-            Swal.fire({
-                  title: "Are you sure?",
-                  text: "You won't be able to revert this!",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                  if (result.isConfirmed) {
-                        fetch(`https://sports-store-server-phi.vercel.app/sports/${_id}`, {
-                              method: 'DELETE',
-                        })
-                              .then(res => res.json())
-                              .then((data) => {
-                                    if (data.deletedCount > 0) {
-                                          Swal.fire({
-                                                title: "Deleted!",
-                                                text: "Your sports item has been deleted.",
-                                                icon: "success"
-                                          });
-                                          const remaining = sports.filter((data) => data._id !== _id);
-                                          set_sports(remaining);
-                                    }
-                              })
-                  }
-            });
-      }
+      const StatusBadge = ({ status }) => {
+            const colors = {
+              'In Stock': 'bg-green-100 text-green-800',
+              'Out of Stock': 'bg-red-100 text-red-800',
+              'Low Stock': 'bg-yellow-100 text-yellow-800',
+            };
+          
+            return (
+              <span className={`px-2 py-1 rounded-full text-sm font-medium ${colors[status]}`}>
+                {status}
+              </span>
+            );
+          };
+      
       return (
-            <div>
-                  <div key={sport._id} className='bg-[#f5f5f5]'>
-                        <img className=' lg:w-[360px] w-full h-[330px] rounded-t-lg' src={image} alt="" />
-                        <div className=' mt-4 p-5 flex items-center justify-between'>
-                              <div className='space-y-4'>
-                                    <h3 className='text-lg !font-semibold'>{item_name}</h3>
-                                    <p className='font-semibold'>Price : {price} $</p>
-                                    <p className='font-semibold flex items-center'>Rating : <span><IoStar className='text-amber-400 text-lg' /></span> {rating}</p>
-                                    <div className='flex items-center justify-between'>
-                                          <p className={`inline px-3 py-1 rounded-lg font-semibold ${status === "in-stock" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}>
-                                                {sport.status}
-                                          </p>
-                                          <div>
-                                                <Link to={`/details/${_id}`} className='flex items-center !gap-3'>
-                                                      <div className='bg-[#D2B48C] p-2 rounded-lg'>
-                                                            <FaRegEye className='text-white ' />
-                                                      </div>
-                                                      <p className='font-bold text-[#D2B48C]'>View Details</p>
-                                                </Link>
-                                          </div>
-                                    </div>
-                              </div>
-
-                              <div className='space-y-3.5'>
-
-                                    {/* <Link to={`/update_sports/${_id}`} className='flex items-center !gap-3'>
-                                          <div className='bg-black p-2 rounded-lg'>
-                                                <IoPencil className='text-white ' />
-                                          </div>
-                                          <p className='font-bold'>Edit</p>
-                                    </Link>
-                                    <Link >
-                                          <button onClick={() => handle_delete(_id)} className='flex items-center !gap-3 cursor-pointer'>
-                                                <div className='bg-red-500 cursor-pointer p-2 rounded-lg'><MdDelete className='text-white ' /></div>
-                                                <p className='font-bold text-red-500'>Delete</p>
-                                          </button>
-                                    </Link> */}
-                              </div>
-                        </div>
-
-                  </div>
-            </div>
+            <div className="overflow-x-auto">
+      <table className="min-w-full bg-white rounded-lg overflow-hidden">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200">
+            <tr key={sport.id} className="hover:bg-gray-200">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <img src={sport.image} alt={sport.name} className="h-16 w-16 object-cover rounded-lg" />
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm font-medium text-gray-900">{sport.item_name}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-900">${parseFloat(sport.price).toFixed(2)}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <span className="text-sm text-gray-900 mr-1">{sport.rating}</span>
+                  <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <StatusBadge status={sport.status} />
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <Link
+                  to={`/details/${sport._id}`}
+                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  View Details
+                </Link>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
       );
 };
 
