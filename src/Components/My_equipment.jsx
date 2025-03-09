@@ -28,6 +28,8 @@ const My_equipment = () => {
         return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
       });
 
+      const [equipment, set_equipment] = useState(sortedItems);
+
       if (loading) {
             return (
                   <div className='flex justify-center items-center min-h-screen'>
@@ -89,7 +91,7 @@ const My_equipment = () => {
                   </button>
                   <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 !gap-12'>
                         {
-                              sortedItems.map((card) => <Card key={card._id} card={card} ></Card>)
+                              equipment.map((card) => <Card key={card._id} card={card} equipment={equipment} set_equipment={set_equipment}></Card>)
                         }
                   </div>
             </div>
